@@ -1,0 +1,42 @@
+import java.io.*;
+
+// Program to read a txt from desktop and copy its content in a new txt named fichero_destino
+
+public class EjemploEntradaSalida {
+    public static void main(String[] args) {
+        int c = 0;
+        int i = 0;
+        char[] cad = new char[100];
+        
+        try {
+            FileReader finput = new FileReader("D:/fichero_origen.txt");
+            FileWriter foutput = new FileWriter("D:/fichero_destino.txt");
+            
+            while (c!=-1) {//si c es menos 1 es que terminó de leer
+                i=0;
+                c= finput.read();
+                while ((c != -1) && (i < 100)) { //100 es la longitud del array                 
+                    cad[i]= (char)c;
+                     /*c es el contenido del archivo, 
+                     **se parsea a caracter y se guarda en el vector de char*/
+                     
+                     i++; 
+                     c = finput.read();
+                }
+                
+                foutput.write(cad); 
+                /* escribe lo que lee en el primer archivo
+                ** en el archivo de salida*/
+            }
+            if (finput != null) {
+                finput.close();
+            }
+            if (foutput != null) {
+                foutput.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
