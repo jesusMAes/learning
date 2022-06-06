@@ -88,7 +88,7 @@ nav a:hover{
 
 .projects-wrap{
   display: grid;
-grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+grid-template-columns:repeat(auto-fit, minmax(480px, 1fr));
 /*ESTO SIRVE PARA HACER COLUMNAS SIN NECESIDAD DE QUERYS MEDIA*/
    grid-gap: 4rem;
    width:100%;
