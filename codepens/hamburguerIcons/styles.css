@@ -1,0 +1,903 @@
+
+*{
+    margin: 0;
+    padding: 0 ;
+}
+
+html, body{
+    height:100%;
+}
+
+body{
+    background: url(https://picsum.photos/2000/1200?image=723) center center /cover no-repeat fixed;
+}
+
+.list{
+    display: flex;
+    flex-wrap:wrap;
+    /*todos los items son hijos de list, con wrap le decimos que si no caben pasen a otra linea*/
+}
+
+/*aquí hace algo muy curioso usa una propiedad de css llamada counter que permite crear contadores como los for, entonces en item llama a counter increment así cada clase de item le suma una y luego con after le da el contenido de ese counter en la posición de ese item por lo que el primer item tendrá de contenido 1 el segundo 2 y así y eso es el numerito al lado del botón*/
+
+.item {
+    position: relative;
+    width: 33.33334%; /*queremos 3 en cada fila*/
+    height: 200px;
+    padding-top: 80px;
+    text-align: center;
+    box-sizing: border-box;
+    counter-increment: item;
+}
+
+.item:after {
+    position: absolute;
+    top: 1.5em;
+    left:1.5em;
+    width: 40px;
+    height:40px;
+    border: 1px solid #fff;
+    content: counter(item);
+    color:#fff;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+    line-height: 40px;
+}
+
+@media only screen and (max-width:768px) {
+    .list {
+        display:block;
+    }
+    .item {
+        width:auto;
+    }
+}
+
+#menu01,
+#menu01 span {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#menu01{
+    position: relative;
+    width:50px;
+    height:44px;
+    background: none;
+    border: none;
+    appearance: none;
+    cursor: pointer;
+}
+#menu01:focus:not(:focus-visible){
+    outline:none;/*por lo que he googleado esto es porque a veces el navegador te resalta los bordecitos cuando tienes el foco en algo y así lo quita, pero he trasteado y no hay cambio supongo que es por asegurarse*/
+}
+
+#menu01::before,
+#menu01::after{
+    /*las barritas*/
+    content: '';
+}
+
+#menu01::before,
+#menu01::after,
+#menu01 span {
+    position: absolute;
+    width:100%;
+    height: 4px;
+    background: #fff;
+    border-radius:4px;
+    transform-origin: 50% 50%;
+    transition: .2s;
+}
+
+#menu01::before{
+    top:20px;
+    left: 0;
+    transform: rotate(-45deg) scaleX(0);
+}
+#menu01::after{
+    top: 20px;
+    right:0;
+    transform: rotate(-45deg) scaleX(0);
+}
+
+#menu01 span:nth-of-type(1){
+    top:0;
+    left:0;
+    transition-delay: .2s;
+}
+
+#menu01 span:nth-of-type(2){
+    top: 20px;
+    left:0;
+    transition-delay: .2s;
+}
+
+#menu01 span:nth-of-type(3){
+    bottom: 0;
+    left: 0;
+    transition-delay: .2s;
+}
+
+/*la forma en la que hace la transición es curiosa porque dibujó la cruz con el after y el before entonces cuando le das la clase active (con JS) lo que hace es un scaleX que los hace medir 0 cono la transformación tiene el origen en 50 50 disminuyen hacia el centro y luego hace visibles los after y before con la forma de la x empezando también en ese punto*/
+
+/*pausa que voy a ir a hacer el javascript que es sencillito y así pruebo que las animaciones van correctas*/
+
+/*vale, sigamos*/
+
+#menu01.active::before {
+    transform: rotate(45deg) scaleX(1);
+    transition-delay: 0.2s;
+}
+#menu01.active::after {
+    transform: rotate(-45deg) scaleX(1);
+    transition-delay:0.2s;
+}
+
+#menu01.active span {
+    transform: scaleX(0);
+    transition-delay: 0s;/*así se borra este antes y cuando acaba salen los otros*/
+}
+
+#menu02,
+#menu02 span {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#menu02{
+    position: relative;
+    width: 50px;
+    height: 44px;
+    background: none;
+    border:none;
+    appearance: none;
+    cursor:pointer;
+}
+
+#menu02:focus:not(:focus-visible){
+    outline: none;
+}
+
+#menu02 span {
+    position: absolute;
+    width: 100%;
+    height:4px;
+}
+
+#menu02 span::before,
+#menu02 span::after {
+    content:'';
+    position: absolute;
+    width:51%;
+    height: 4px;
+    background: #fff;
+    transition: .2s
+}
+
+#menu02 span::before {
+    left:0;
+    border-radius: 4px 0 0 4px;
+}
+#menu02 span::after {
+    right:0;
+    border-radius: 0 4px 4px 0;
+}
+
+#menu02 span:nth-of-type(1){
+    top: 0;
+    left:0;
+}
+#menu02 span:nth-of-type(2){
+    top: 20px;
+    left:0;
+}
+#menu02 span:nth-of-type(3){
+    bottom: 0;
+    left:0;
+}
+
+#menu02.active span:nth-of-type(1)::before {
+    transform: translate(4px, 11px) rotate(45deg);
+}
+#menu02.active span:nth-of-type(1)::after {
+    transform: translate(-3px, 11px) rotate(-45deg);
+}
+
+#menu02.active span:nth-of-type(2)::before {
+    transform: translateX(-75%);
+    opacity: 0;
+}
+
+#menu02.active span:nth-of-type(2)::after{
+    transform: translateX(75%);
+    opacity:0;
+}
+
+#menu02.active span:nth-of-type(3)::before {
+    transform: translate(4px, -11px) rotate(-45deg);
+}
+#menu02.active span:nth-of-type(3)::after {
+    transform: translate(-3px,-11px) rotate(45deg);
+}
+
+#menu03,
+#menu03 span{
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#menu03 {
+    position: relative;
+    width:50px;
+    height:44px;
+    background: none;
+    border:none;
+    appearance: none;
+    cursor: pointer;
+}
+
+#menu03:focus:not(:focus-visible){
+    outline:none;
+}
+
+#menu03 span {
+    position: absolute;
+    width:100%;
+    height:4px;
+    background:#fff;
+    border-radius: 4px;
+}
+
+#menu03 span:nth-of-type(1){
+    top: 0;
+    left:0;
+    transform-origin: 0 0;
+    animation: menu03-bar01-cole .2s forwards;
+}
+
+#menu03 span:nth-of-type(2) {
+    top: 20px;
+    left:0;
+    transition: .2s;
+}
+
+#menu03 span:nth-of-type(3) {
+    right:0;
+    bottom: 0;
+    transform-origin: 100% 0;
+    animation: menu03-bar03-close .2s forwards;
+}
+
+#menu03.active span:nth-of-type(1){
+    animation: menu03-bar01-open .4s forwards;
+}
+
+#menu03.active span:nth-of-type(2) {
+    transform: rotate(-45deg);
+    transition-delay: .2s;
+}
+
+#menu03.active span:nth-of-type(3){
+    animation: menu03-bar03-open .4s forwards;
+}
+
+@keyframes menu03-bar01-open {
+    0% {
+      width: 100%;
+      transform: rotate(0deg) translate(0);
+    }
+    50% {
+      width: 51%;
+      transform: rotate(0deg) translate(0);
+    }
+    100% {
+      width: 51%;
+      transform: rotate(45deg) translate(8px, -4px);
+    }
+  }
+
+@keyframes menu03-bar01-close {
+    0% {
+        width:51%;
+        transform: rotate(45deg) translate(8px, -4px);
+    }
+    100% {
+        width:100%;
+        transform: rotate(0deg) translate(0);
+    }
+}
+
+@keyframes menu03-bar03-open {
+    0% {
+        width:100%;
+        transform: rotate(0deg) translate(0);
+    }
+    50% {
+        width: 51%;
+        transform:rotate(0deg) translate(0);
+    }
+    100% {
+        width:51%;
+        transform: rotate(45deg) translate(-6px, 3px);
+    }
+}
+
+@keyframes menu03-bar03-close {
+    0% {
+        width: 51%;
+        transform: rotate(45deg) translate(-6px, 3px);
+    }
+    100% {
+        width:100%;
+        transform: rotate(0deg) translate(0);
+    }
+}
+
+#menu04,
+#menu04 span{
+    display:inline-block;
+    box-sizing:border-box;
+}
+
+#menu04 {
+    position: relative;
+    width:50px;
+    height: 44px;
+    background:none;
+    border:none;
+    appearance: none;
+    cursor: pointer;
+}
+
+#menu04:focus:not(:focus-visible){
+    outline:none;
+}
+
+#menu04 span {
+    position: absolute;
+    width:100%;
+    height: 4px;
+    background: #fff;
+    border-radius: 4px;
+}
+
+#menu04 span:nth-of-type(1) {
+    top:0;
+    left:0;
+    transition: top .3s;
+}
+
+#menu04 span:nth-of-type(2) {
+    top: 20px;
+    left:0;
+    transition: opacity .3s;
+}
+
+#menu04 span:nth-of-type(3) {
+    bottom: 0;
+    left:0;
+    transition: bottom .3s;
+}
+
+#menu04.active span:nth-of-type(1){
+    top:20px;
+    transform: rotate(-45deg);
+    transition: top .3s cubic-bezier(.36, -.42, .68, -.56), transform .3s .3s;
+}
+
+#menu04.active span:nth-of-type(2){
+    opacity:0;
+    transition: opacity .05s .3s;
+}
+#menu04.active span:nth-of-type(3) {
+    bottom: 20px;
+    transform:rotate(45deg);
+    transition: bottom .3s cubic-bezier(.36, -.42, .68, -.56), transform .3s .3s;
+}
+
+#menu05,
+#menu05 span {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#menu05 {
+    position: relative;
+    width:50px;
+    height: 44px;
+    background: none;
+    border:none;
+    appearance: none;
+    cursor: pointer;
+    transition: .6s cubic-bezier(.68, -.5, .32, 1.6);
+}
+
+#menu05:focus:not(:focus-visible){
+    outline:none;
+}
+
+#menu05 span {
+    position: absolute;
+    width:100%;
+    height:4px;
+    background:#fff; 
+    border-radius: 4px;
+    transition: .3s .2s;
+}
+#menu05 span:nth-of-type(1){
+    top: 0;
+    left:0;
+}
+#menu05 span:nth-of-type(2){
+    top: 20px;
+    left:0;
+}
+
+#menu05 span:nth-of-type(3){
+    bottom: 0;
+    left:0;
+}
+
+#menu05.active {
+    transform: rotate( 180deg) ;
+}
+
+#menu05.active span:nth-of-type(1){
+    transform: translateY(20px) rotate(-45deg);
+}
+#menu05.active span:nth-of-type(2){
+    transform: translateY(0) rotate(45deg);
+}
+#menu05.active span:nth-of-type(3){
+    opacity:0;
+}
+
+#menu06,
+#menu06 span {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#menu06 {
+    position: relative;
+    width: 50px; 
+    height: 44px;
+    background: none;
+    border: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+#menu06:focus:not(:focus-visible){
+    outline: none;
+}
+
+#menu06::before,
+#menu06::after{
+    content: '';
+}
+
+#menu06::before,
+#menu06::after,
+#menu06 span{
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: #fff;
+    border-radius: 4px;
+    transition: .2s;
+}
+
+#menu06::before {
+    top: 3px;
+    left: 8px;
+    transform-origin: 0 0;
+    transform: rotate(45deg) scaleX(0);
+    transition-delay: 0s;
+}
+
+#menu06::after {
+    bottom: 3px;
+    left: 8px;
+    transform-origin: 0 100%;
+    transform: rotate(-45deg) scaleX(0);
+    transition-delay:0s;
+}
+
+#menu06 span:nth-of-type(1){
+    top:0;
+    left:0;
+    transform-origin: 0 0;
+    transition-delay: .3s;
+}
+#menu06 span:nth-of-type(2){
+    top:20px;
+    left:0;
+    transform-origin: 50% 50%;
+    transition-delay: .3s;
+}
+#menu06 span:nth-of-type(3){
+    right: 0;
+    bottom:0;
+    transform-origin: 100% 0;
+    transition-delay: .3s;
+}
+
+#menu06.active::before{
+    transform: rotate(45deg) scaleX(1);
+    transition-delay: .3s;
+}
+
+#menu06.active::after {
+    transform: rotate(-45deg) scaleX(1);
+    transition-delay: .3s;
+}
+
+#menu06.active span:nth-of-type(-n+3){
+    transform: scaleX(0);
+    transition-delay: 0s;
+}
+
+#menu07,
+#menu07 span {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#menu07 {
+    position: relative;
+    width:50px;
+    height: 44px;
+    background:none;
+    border: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+#menu07:focus:not(:focus-visible){
+    outline: none;
+}
+
+#menu07::before,
+#menu07::after{
+    content: '';
+}
+
+#menu07::before,
+#menu07::after,
+#menu07 span {
+    position: absolute;
+    width:100%;
+    height: 4px;
+    background: #fff;
+    border-radius: 4px;
+    transition: .2s;
+}
+
+#menu07::before {
+    top: 3px;
+    left:8px;
+    transform-origin: 0 0;
+    transform: rotate(45deg) scaleX(0);
+    transition-delay: 0s;
+}
+
+#menu07::after {
+    top: 3px;
+    right: 9px;
+    transform-origin: 100% 0;
+    transform: rotate(-45deg) scaleX(0);
+    transition-delay: .2s;
+}
+
+#menu07 span:nth-of-type(1){
+    top: 0;
+    left:0;
+    transform-origin: 0 0;
+    transition-delay: .5s;
+}
+
+#menu07 span:nth-of-type(2){
+    top: 20px;
+    left: 0;
+    transform-origin: 50% 50%;
+    transition-delay: .5s;
+}
+
+#menu07 span:nth-of-type(3){
+    right:0;
+    bottom: 0;
+    transform-origin: 100% 0;
+    transition-delay: .5s;
+}
+
+#menu07.active::before{
+    transform: rotate(45deg) scaleX(1);
+    transition-delay: .3s;
+}
+#menu07.active::after {
+    transform: rotate(-45deg) scaleX(1);
+    transition-delay: .5s;
+}
+
+#menu07.active span:nth-of-type(-n+3){
+    transform: scaleX(0);
+    transition-delay: 0s;
+    /*esto selecciona todos los span, como dimos origen de transformación distintos comenzarán a reducirse hasta desaparecer por puntos distintos*/
+}
+
+#menu08,
+#menu08 span {
+    display:inline-block;
+    box-sizing: border-box;
+}
+
+#menu08 {
+    position: relative;
+    width: 50px;
+    height:44px;
+    background: none;
+    border:none;
+    appearance: none;
+    cursor: pointer;
+}
+#menu08:focus:not(:focus-visible){
+    outline: none;
+}
+
+#menu08::before,
+#menu08::after {
+    content: '';
+}
+
+#menu08::before,
+#menu08::after,
+#menu08 span {
+    position: absolute;
+    width:100%;
+    height: 4px;
+    background: #fff;
+    border-radius: 4px;
+    transition: .2s;
+}
+
+#menu08::before {
+    top: 3px;
+    left: 8px;
+    transform-origin: 0 0;
+    transform: rotate(45deg) scaleX(0);
+    transition-delay: 0s;
+}
+
+#menu08::after{
+    top:3px;
+    right:9px;
+    transform-origin: 100% 0;
+    transform: rotate(-45deg) scaleX(0);
+    transition-delay: .2s;
+}
+
+#menu08 span:nth-of-type(-n+3){
+    left:0;
+    transform-origin: 100% 0;
+    transition-delay: .5s;
+}
+
+#menu08 span:nth-of-type(1){
+    top:0;
+}
+#menu08 span:nth-of-type(2){
+    top: 20px;
+}
+#menu08 span:nth-of-type(3){
+    bottom:0;
+}
+
+#menu08.active::before {
+    transform: rotate(45deg) scaleX(1);
+    transition-delay: .6s;
+}
+
+#menu08.active::after {
+    transform: rotate(-45deg) scaleX(1);
+    transition-delay: .8s;
+}
+
+#menu08.active span:nth-of-type(-n+3){
+    transform: scaleX(0);
+}
+
+#menu08.active span:nth-of-type(1){
+    transition-delay: .1s;
+}
+#menu08.active span:nth-of-type(2){
+    transition-delay: .25s;
+}
+#menu08.active span:nth-of-type(3){
+    transition-delay: .4s;
+}
+
+#menu09,
+#menu09 span {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#menu09{
+    position: relative;
+    width:50px;
+    height: 44px;
+    background:none;
+    border:none;
+    appearance: none;
+    cursor: pointer;
+}
+
+#menu09:focus:not(:focus-visible){
+    outline:none;
+}
+
+#menu09::before,
+#menu09::after{
+    content: '';
+}
+
+#menu09::before,
+#menu09::after,
+#menu09 span {
+    position: absolute;
+    width:100%;
+    height:4px;
+    background: #fff;
+    border-radius: 4px;
+    transition: .2s;
+}
+
+#menu09::before{
+    top:3px;
+    left:8px;
+    transform-origin: 0 0;
+    transform: rotate(45deg) scaleX(0);
+    transition-delay:0s;
+}
+
+#menu09::after {
+    top:3px;
+    right: 9px;
+    transform-origin: 100% 0;
+    transform: rotate(-45deg) scaleX(0);
+    transition-delay: .2s;
+}
+
+#menu09 span:nth-of-type(1){
+    top:0;
+    left:0;
+    transition-delay: .4s;
+}
+
+#menu09 span:nth-of-type(2){
+    top:20px;
+    left:0;
+    transition-delay: .55s;
+}
+
+#menu09 span:nth-of-type(3){
+    bottom:0;
+    left:0;
+    transition-delay: .7s;
+}
+
+#menu09.active::before {
+    transform: rotate(45deg) scaleX(1);
+    transition-delay: .6s;
+}
+
+#menu09.active::after {
+    transform: rotate(-45deg) scaleX(1);
+    transition-delay: .8s;
+}
+#menu09.active span:nth-of-type(-n+3){
+    transform: translateX(20px);
+    opacity:0;
+}
+
+#menu09.active span:nth-of-type(1){
+    transition-delay:.1s;
+}
+#menu09.active span:nth-of-type(2){
+    transition-delay: .25s;
+}
+#menu09.active span:nth-of-type(3){
+    transition-delay: .4s;
+}
+
+#menu10,
+#menu10 span {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#menu10 {
+    position: relative;
+    width:50px;
+    height: 44px;
+    background: none;
+    border:none;
+    appearance: none;
+    cursor: pointer;
+}
+#menu10:focus:not(:focus-visible){
+    outline:none;
+}
+
+#menu10::before,
+#menu10::after {
+    content: '';
+}
+
+#menu10::before,
+#menu10::after,
+#menu10 span {
+    position: absolute;
+    width:100%;
+    height: 4px;
+    background:#fff;
+    border-radius: 4px;
+}
+
+#menu10::before {
+    top: 3px;
+    left: 8px;
+    transform-origin: 0 0;
+    transform: rotate(45deg) scaleX(0);
+    transition: .2s;
+}
+
+#menu10::after{
+    top:3px;
+    right: 9px;
+    transform-origin: 100% 0;
+    transform: rotate(-45deg) scaleX(0);
+    transition: .2s .2s;
+}
+
+#menu10 span:nth-of-type(-n+3){
+    left:0;
+    transition: .2s .4s;
+}
+
+#menu10 span:nth-of-type(1){
+    top:0;
+}
+#menu10 span:nth-of-type(2){
+    top:20px;
+}
+#menu10 span:nth-of-type(3){
+    bottom:0;
+}
+
+#menu10.active::before {
+    transform:rotate(45deg) scaleX(1);
+    transition-delay: .8s;
+}
+
+#menu10.active::after{
+    transform: rotate(-45deg) scaleX(1);
+    transition-delay: 1s;
+}
+
+#menu10.active span:nth-of-type(-n+3){
+    transform: translateX(20px);
+    /*el cubic becier es lo que hace el ligero movimiento hacia delante, creo*/
+    transition: .4s cubic-bezier(.68, -2, .32, 1.6);
+    opacity: 0;
+}
+#menu10.active span:nth-of-type(2){
+    transition-delay: .1s;
+}
+#menu10.active span:nth-of-type(3){
+    transition-delay: .3s;
+}
