@@ -1,0 +1,89 @@
+<!-- README YOU COWARD
+ Im bad with css and i learn by copy, some of my pens are just commented copies of others pens made by people who made things that i want to learn to do, this pen is the copy of this  hhttps://codepen.io/evilpaper/pen/dyyZjLQ
+and my attempt to understand how it works the code behind the results -->
+
+<!--Okay en una primera vista la presentación parece fácil si te paras a pensarla, usa un ul para cada fila del teclado, supongo que luego le pondrá el flex para que estén de lado y con las clases a cada li le va dando un color, importante aquí usar los id porque luego se van a usar en javascript para coger los elementos-->
+
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    
+    <title>Keyboard Hero</title>
+</head>
+<body>
+    <h2 class="ritmo">Speed:</h2> 
+    <span id="ritmo"></span>
+     <p class="subtitulo">char/mins</p>
+<h1 class="title">Eyes on the screen</h1>
+
+<div class="keyboard">
+    <ul class="row row-0">
+        <li class="pinky" id="esc">ESC</li>
+        <li class="pinky" id="1">1</li>
+        <li class="ring" id="2">2</li>
+        <li class="middle" id="3">3</li>
+        <li class="pointer1st" id="4">4</li>
+        <li class="pointer2nd" id="5">5</li>
+        <li class="pointer2nd" id="6">6</li>
+        <li class="pointer1st" id="7">7</li>
+        <li class="middle" id="8">8</li>
+        <li class="ring" id="9">9</li>
+        <li class="pinky" id="10">0</li>
+        <li class="pinky">-</li>
+        <li class="pinky">+</li>
+        <li class="pinky" id="back">BACK</li>
+    </ul>
+
+    <ul class="row row-1">
+        <li class="pinky" id="tab">TAB</li>
+        <li class="pinky" id="Q">Q</li>
+        <li class="ring" id="W">W</li>
+        <li class="middle" id="E">E</li>
+        <li class="pointer1st" id="R">R</li>
+        <li class="pointer2nd" id="T">T</li>
+        <li class="pointer2nd" id="Y">Y</li>
+        <li class="pointer1st" id="U">U</li>
+        <li class="middle" id="I">I</li>
+        <li class="ring" id="O">O</li>
+        <li class="pinky" id="P">P</li>
+        <li class="pinky">[</li>
+        <li class="pinky">]</li>
+        <li class="pinky">/</li>
+    </ul>
+
+    <ul class="row row-2">
+        <li class="pinky" id="caps">CAPS</li>
+        <li class="pinky" id="A">A</li>
+        <li class="ring" id="S">S</li>
+        <li class="middle" id="D">D</li>
+        <li class="pointer1st" id="F">F</li>
+        <li class="pointer2nd" id="G">G</li>
+        <li class="pointer2nd" id="H">H</li>
+        <li class="pointer1st" id="J">J</li>
+        <li class="middle" id="K">K</li>
+        <li class="ring" id="L">L</li>
+        <li class="pinky">Ñ</li>
+        <li class="pinky">''</li>
+        <li class="pinky" id="enter">ENTER</li>
+    </ul>
+<!--En realidad esto podría haberse hecho con react un array que contuviese el abecedario un for o map y poco más pero también es más mareo-->
+    <ul class="row row-3">
+        <li class="pinky" id="left-shift">SHIFT</li>
+        <li class="pinky" id="Z">Z</li>
+        <li class="ring" id="X">X</li>
+        <li class="middle" id="C">C</li>
+        <li class="pointer1st" id="V">V</li>
+        <li class="pointer2nd" id="B">B</li>
+        <li class="pointer2nd" id="N">N</li>
+        <li class="pointer1st" id="M">M</li>
+        <li class="middle">,</li>
+        <li class="ring">.</li>
+        <li class="pinky">;</li>
+        <li class="pinky" id="right-shift">SHIFT</li>
+    </ul>
+</div>
+
+<h1 class="title">Hands on the keyboard</h1>
+<script type="text/javascript" src="index.js"></script>
+</body>
+</html>
